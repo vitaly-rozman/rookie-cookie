@@ -3,25 +3,30 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 import { createStore, applyMiddleware, compose } from 'redux';
+import { ConnectedRouter } from 'connected-react-router';
+import { routerMiddleware } from 'connected-react-router';
+import { createBrowserHistory } from 'history';
 import { createLogger } from 'redux-logger';
-import rootReducer from './redux/rootReducer';
+import createRootReducer from './redux/rootReducer';
 import rootSaga from './redux/rootSaga';
-import App from './containers/App';
+import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 const sagaMiddleware = createSagaMiddleware();
-
+const history = createBrowserHistory();
 const store = createStore(
-  rootReducer,
+  createRootReducer(history),
   compose( 
-  applyMiddleware(sagaMiddleware, createLogger({collapsed: true}))
+    applyMiddleware(routerMiddleware(history), sagaMiddleware, createLogger({collapsed: true}))
 ));
 
 sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <ConnectedRouter history={history}>
+      <App />
+    </ConnectedRouter>
   </Provider>
 , document.getElementById('root'));
 

@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components'
-import { classList } from '../data/classes'
-import ClassCard from '../components/ClassCard'
-import NewClassCard from '../components/NewClassCard'
-import NavBar from '../components/NavBar'
 
-const App = () => {
+import ClassCard from '../../components/Card/'
+import NewClassCard from '../../components/NewCard/'
+import NavBar from '../../components/NavBar/'
+
+import { Wrapper, GridWrapper } from './styled'
+import { classList } from '../../data/classes'
+
+const Home = () => {
   const [classes, setClasses] = useState([])
+
+  useEffect(() => {
+    setClasses(classList)
+  }, [])
 
   const addClasses = (newClass) => {
 
@@ -25,10 +31,6 @@ const App = () => {
     setClasses(obj)
   }
 
-  useEffect(() => {
-    setClasses(classList)
-  }, [])
-
   return (
     <Wrapper>
       <NavBar addFn={addClasses} />
@@ -43,17 +45,4 @@ const App = () => {
   )
 }
 
-export default App
-
-const Wrapper = styled.div `
-  max-width: 1280px;
-  margin: 65px auto 0;
-  text-align: center;
-  box-sizing: content-box;
-`
-const GridWrapper = styled.div `
-  display: grid;
-  justify-items: center;
-  grid-template-columns: repeat(auto-fit, minmax(40px, 2fr));;
-  grid-gap: 2rem;
-`;
+export default Home
