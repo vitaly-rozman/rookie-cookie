@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 const formFields = [
   {key: 'title', placeholder: 'Title', regExp: '^$|\s+'},
   {key: 'instructor', placeholder: 'Instructor', regExp: '^$|\s+'},

@@ -28,7 +28,7 @@ const NewClassCard = ({addFn, id}) => {
   const validateForm = () => {
     const errors = []
 
-    formFields.map(field => {
+    formFields.forEach(field => {
       const regex = RegExp(field.regExp);
 
       if (regex.test(newClass[field.key])){
